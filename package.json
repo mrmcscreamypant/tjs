@@ -1,6 +1,7 @@
 {
     "name": "My definition of fun",
     "dependencies": {
+        "three": "^0.180.0",
         "vite": "^7.1.5"
     },
     "scripts": {
