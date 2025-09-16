@@ -4,14 +4,14 @@ import IWorld from "./engine/IWorld";
 
 export default class DebugWorld implements IWorld {
     scene: THREE.Scene;
-    camera: THREE.Camera;
+    camera: THREE.PerspectiveCamera;
 
     cube: THREE.Mesh;
 
     constructor() {
         this.scene = new THREE.Scene();
         this.cube = this.makeCube();
-        this.camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight)
+        this.camera = new THREE.PerspectiveCamera(70)
         this.camera.position.z = 1;
     }
 
@@ -26,6 +26,12 @@ export default class DebugWorld implements IWorld {
     }
 
     public mainloop() {
+        this.cube.rotation.x += 0.01;
+        this.cube.rotation.y += 0.03
+    }
 
+    public windowResizeHook(width: number, height: number) {
+        this.camera.aspect = width/height;
+        this.camera.updateProjectionMatrix();
     }
 }
