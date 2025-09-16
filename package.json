@@ -7,6 +7,10 @@
     },
     "scripts": {
         "dev": "vite .",
+        "network-dev": "vite . --host",
         "build": "vite build ."
+    },
+    "devDependencies": {
+        "@types/three": "^0.180.0"
     }
 }
