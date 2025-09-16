@@ -13,7 +13,7 @@ export default class Engine {
     public setupRenderer() {
         return new THREE.WebGLRenderer({
             powerPreference: "high-performance",
-            antialias: false,
+            antialias: true,
             stencil: false,
             depth: true
         });

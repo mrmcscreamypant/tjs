@@ -3,6 +3,7 @@
     "dependencies": {
         "postprocessing": "^6.37.8",
         "three": "^0.180.0",
+        "troika-three-text": "^0.52.4",
         "vite": "^7.1.5"
     },
     "scripts": {
