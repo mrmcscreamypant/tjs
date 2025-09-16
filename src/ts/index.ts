@@ -16,8 +16,7 @@ const engine = new Engine();
 engine.launch();
 
 engine.activeWorld = new DebugWorld();
-
-engine.renderer.setSize(window.innerWidth, window.innerHeight);
+engine.activeWorld = new DebugWorld();
 
 //scene.add(mesh);
 
@@ -33,8 +32,3 @@ engine.renderer.setSize(window.innerWidth, window.innerHeight);
 
 //});
 document.body.appendChild(engine.renderer.domElement);
-
-function animate(time) {
-    mesh.rotation.x = time / 2000;
-    mesh.rotation.y = time / 1000;
-}

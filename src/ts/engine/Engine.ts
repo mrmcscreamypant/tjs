@@ -31,6 +31,9 @@ export default class Engine {
     }
 
     public set activeWorld(world: IWorld | undefined) {
+        if (this._activeWorld) {
+            this._activeWorld.dispose();
+        }
         this._activeWorld = world;
         this.doResize();
     }
