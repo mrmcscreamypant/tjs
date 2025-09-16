@@ -2,7 +2,7 @@
     "name": "My definition of fun",
     "version": "0.1.0",
     "main": "app.ts",
-    "type":"module",
+    "type": "module",
     "dependencies": {
         "postprocessing": "^6.37.8",
         "three": "^0.180.0",
