@@ -1,8 +1,10 @@
 import * as THREE from 'three';
+import IWorld from './IWorld';
 
 export default class Engine {
     public renderer: THREE.WebGLRenderer;
     public scene: THREE.Scene;
+    public activeWorld: IWorld | undefined
     private activeCamera: THREE.Camera;
 
     public constructor() {
@@ -30,6 +32,9 @@ export default class Engine {
     }
 
     private mainloop() {
+        if (this.activeWorld) {
+            this.activeWorld.mainloop();
+        }
         this.renderer.render(this.scene, this.activeCamera);
     }
 }
