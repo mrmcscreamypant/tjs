@@ -19,7 +19,7 @@ export default class DebugWorld implements IWorld {
     }
 
     private makeCube(): THREE.Mesh {
-        const geometry = this.resTracker.track(new THREE.BoxGeometry(0.5, 0.5, 0.5));
+        const geometry = this.resTracker.track(new THREE.BoxGeometry(0.2, 0.2, 0.2));
         const material = this.resTracker.track(new THREE.MeshNormalMaterial());
 
         const mesh = this.resTracker.track(new THREE.Mesh(geometry, material));

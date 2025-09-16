@@ -1,5 +1,8 @@
 {
     "name": "My definition of fun",
+    "version": "0.1.0",
+    "main": "app.ts",
+    "type":"module",
     "dependencies": {
         "postprocessing": "^6.37.8",
         "three": "^0.180.0",
@@ -7,11 +10,13 @@
         "vite": "^7.1.5"
     },
     "scripts": {
+        "app": "electron .",
         "dev": "vite .",
         "network-dev": "vite . --host",
         "build": "vite build ."
     },
     "devDependencies": {
-        "@types/three": "^0.180.0"
+        "@types/three": "^0.180.0",
+        "electron": "^38.1.0"
     }
 }
