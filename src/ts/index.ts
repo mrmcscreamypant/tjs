@@ -8,15 +8,13 @@ import DebugWorld from './DebugWorld';
 
 console.log("hello world!");
 
-
-
 const engine = new Engine();
 
 //engine.scene.add(mesh);
 
 engine.launch();
 
-engine.activeWorld = new IntroWorld();
+engine.activeWorld = new IntroWorld(engine);
 
 //scene.add(mesh);
 

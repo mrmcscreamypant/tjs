@@ -1,5 +1,10 @@
 {
     "compilerOptions": {
-        "typeRoots" : ["./lib"]
-    }
+        "typeRoots": [
+            "./index.d.ts"
+        ]
+    },
+    "include": [
+        "src"
+    ]
 }

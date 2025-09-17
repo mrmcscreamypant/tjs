@@ -6,13 +6,15 @@ import { loadColorTexture } from '../../engine/AssetLoader';
 import logoTexture from './logo.jpg';
 import sideTexture from './side.jpg';
 
+import DebugWorld from '../../DebugWorld';
+
 export default class IntroCube implements IObject, ITickedObject {
     public world: IWorld;
     public readonly geometry: THREE.BoxGeometry;
     public readonly materials: THREE.MeshBasicMaterial[] = [];
     public readonly mesh: THREE.Mesh;
 
-    private glide: THREE.Vector3 = new THREE.Vector3(20 * Math.PI, 10 * Math.PI, 0);
+    private glide: THREE.Vector3 = new THREE.Vector3(2 * Math.PI, 1.5 * Math.PI, 0);
     private glideTarget: THREE.Vector3 = new THREE.Vector3(Math.PI+0.3, 0.1, Math.PI);
 
     constructor(world: IWorld) {
@@ -41,6 +43,7 @@ export default class IntroCube implements IObject, ITickedObject {
     // I don't want to hear ANY remarks about this function
     public tick() {
         if (this.glide.distanceTo(this.glideTarget) <= 0.01) {
+            this.world.engine.activeWorld = new DebugWorld(this.world.engine);
             return;
         }
 

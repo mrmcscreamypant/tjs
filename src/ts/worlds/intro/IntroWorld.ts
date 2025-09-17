@@ -3,8 +3,11 @@ import * as THREE from 'three';
 import IWorld from "../../engine/IWorld";
 import ResourceTracker from '../../engine/ResourceTracker';
 import IntroCube from './IntroCube';
+import DebugWorld from '../../DebugWorld';
+import Engine from '../../engine/Engine';
 
 export default class IntroWorld implements IWorld {
+    public readonly engine: Engine;
     public readonly scene: THREE.Scene;
     public readonly camera: THREE.PerspectiveCamera;
     public readonly resTracker: ResourceTracker;
@@ -13,7 +16,9 @@ export default class IntroWorld implements IWorld {
 
     public cube: IntroCube;
 
-    public constructor() {
+    public constructor(engine: Engine) {
+        this.engine = engine;
+
         this.resTracker = new ResourceTracker();
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(70);
