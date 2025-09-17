@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import IObject from '../../engine/IObject';
 import IWorld from '../../engine/IWorld';
 import ITickedObject from '../../engine/ITickedObject';
-import Loaders, { loadColorTexture } from '../../engine/AssetLoader';
+import { loadColorTexture } from '../../engine/AssetLoader';
 import logoTexture from './logo.jpg';
 import sideTexture from './side.jpg';
 
@@ -13,7 +13,7 @@ export default class IntroCube implements IObject, ITickedObject {
     public readonly mesh: THREE.Mesh;
 
     private glide: THREE.Vector3 = new THREE.Vector3(20 * Math.PI, 10 * Math.PI, 0);
-    private glideTarget: THREE.Vector3 = new THREE.Vector3(Math.PI, 0, Math.PI);
+    private glideTarget: THREE.Vector3 = new THREE.Vector3(Math.PI+0.3, 0.1, Math.PI);
 
     constructor(world: IWorld) {
         this.world = world;

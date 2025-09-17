@@ -9,7 +9,7 @@ export default class IntroWorld implements IWorld {
     public readonly camera: THREE.PerspectiveCamera;
     public readonly resTracker: ResourceTracker;
     public readonly ambientLight: THREE.AmbientLight;
-    public readonly directionalLight: THREE.DirectionalLight;
+    public readonly pointLight: THREE.PointLight;
 
     public cube: IntroCube;
 
@@ -20,10 +20,10 @@ export default class IntroWorld implements IWorld {
         this.camera.position.z = 1;
 
         this.ambientLight = this.resTracker.track(new THREE.AmbientLight(0xFFFFFF, 0.2));
-        this.directionalLight = this.resTracker.track(new THREE.DirectionalLight(0xFF2211, 1));
-        this.directionalLight.position.set(2, 0, 2)
+        this.pointLight = this.resTracker.track(new THREE.PointLight(0xFFFFFF, 10, 5, 10));
+        this.pointLight.position.set(1, 0, 1);
         this.scene.add(this.ambientLight);
-        this.scene.add(this.directionalLight);
+        this.scene.add(this.pointLight);
 
         this.cube = new IntroCube(this);
         this.scene.add(this.cube.obj());
@@ -38,7 +38,7 @@ export default class IntroWorld implements IWorld {
     }
 
     public windowResizeHook(width: number, height: number) {
-        this.camera.aspect = width/height;
+        this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
     }
 }
