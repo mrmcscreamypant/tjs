@@ -1,0 +1,11 @@
+import package.of.Student;
+
+public class App {
+    public static final void main(String[] args) {
+        final Student student = new Student("test student");
+        student.addScore(0);
+        student.addScore(0);
+        student.addScore(20000000);
+        System.out.println(String.valueOf(student.getAverage()));
+    }
+}

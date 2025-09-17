@@ -3,7 +3,8 @@ import IObject from '../../engine/IObject';
 import IWorld from '../../engine/IWorld';
 import ITickedObject from '../../engine/ITickedObject';
 import Loaders, { loadColorTexture } from '../../engine/AssetLoader';
-import logoTexture from './flower-1.jpg';
+import logoTexture from './logo.jpg';
+import sideTexture from './side.jpg';
 
 export default class IntroCube implements IObject, ITickedObject {
     public world: IWorld;
@@ -12,7 +13,7 @@ export default class IntroCube implements IObject, ITickedObject {
     public readonly mesh: THREE.Mesh;
 
     private glide: THREE.Vector3 = new THREE.Vector3(20 * Math.PI, 10 * Math.PI, 0);
-    private glideTarget: THREE.Vector3 = new THREE.Vector3(Math.PI, 0, 0);
+    private glideTarget: THREE.Vector3 = new THREE.Vector3(Math.PI, 0, Math.PI);
 
     constructor(world: IWorld) {
         this.world = world;
@@ -22,9 +23,11 @@ export default class IntroCube implements IObject, ITickedObject {
         this.geometry = track(new THREE.BoxGeometry(0.2, 0.2, 0.2));
 
         for (let i = 0; i < 5; i++) {
-            this.materials.push(track(new THREE.MeshBasicMaterial()));
+            this.materials.push(track(new THREE.MeshPhongMaterial(
+                { map: loadColorTexture(sideTexture) }
+            )));
         }
-        this.materials.push(track(new THREE.MeshBasicMaterial(
+        this.materials.push(track(new THREE.MeshPhongMaterial(
             { map: loadColorTexture(logoTexture) }
         )));
 

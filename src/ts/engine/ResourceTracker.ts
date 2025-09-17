@@ -1,20 +1,22 @@
 import * as THREE from 'three';
 
+type Resource = any;
+
 export default class ResourceTracker {
-    private resources: Set<any>;
+    private resources: Set<Resource>;
 
     public constructor() {
         this.resources = new Set();
     }
 
-    public track(resource: any) {
-        if (resource.dispose || resource instanceof THREE.Object3D) {
+    public track<Resource>(resource: Resource) {
+        if (resource || resource instanceof THREE.Object3D) {
             this.resources.add(resource);
         }
         return resource;
     }
 
-    public untrack(resource: any) {
+    public untrack<Resource>(resource: Resource) {
         this.resources.delete(resource);
     }
 
