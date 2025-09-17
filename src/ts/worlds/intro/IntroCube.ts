@@ -1,0 +1,54 @@
+import * as THREE from 'three';
+import IObject from '../../engine/IObject';
+import IWorld from '../../engine/IWorld';
+import ITickedObject from '../../engine/ITickedObject';
+import Loaders, { loadColorTexture } from '../../engine/AssetLoader';
+import logoTexture from './flower-1.jpg';
+
+export default class IntroCube implements IObject, ITickedObject {
+    public world: IWorld;
+    public readonly geometry: THREE.BoxGeometry;
+    public readonly materials: THREE.MeshBasicMaterial[] = [];
+    public readonly mesh: THREE.Mesh;
+
+    private glide: THREE.Vector3 = new THREE.Vector3(20 * Math.PI, 10 * Math.PI, 0);
+    private glideTarget: THREE.Vector3 = new THREE.Vector3(Math.PI, 0, 0);
+
+    constructor(world: IWorld) {
+        this.world = world;
+
+        const track = (o: any): any => (this.world.resTracker.track(o));
+
+        this.geometry = track(new THREE.BoxGeometry(0.2, 0.2, 0.2));
+
+        for (let i = 0; i < 5; i++) {
+            this.materials.push(track(new THREE.MeshBasicMaterial()));
+        }
+        this.materials.push(track(new THREE.MeshBasicMaterial(
+            { map: loadColorTexture(logoTexture) }
+        )));
+
+        this.mesh = track(new THREE.Mesh(this.geometry, this.materials));
+    }
+
+    public obj(): THREE.Object3D {
+        return this.mesh;
+    }
+
+    // I don't want to hear ANY remarks about this function
+    public tick() {
+        if (this.glide.distanceTo(this.glideTarget) <= 0.01) {
+            return;
+        }
+
+        const axies: string[] = ["x", "y", "z"];
+
+        for (let axis of axies) {
+            //@ts-ignore me being efficent
+            this.mesh.rotation[axis] = this.glide[axis];
+
+            //@ts-ignore instead of doing it the 'proper' way
+            this.glide[axis] += (this.glideTarget[axis] - this.glide[axis]) / 30;
+        }
+    }
+}

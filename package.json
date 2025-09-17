@@ -1,6 +1,7 @@
 {
     "name": "My definition of fun",
     "version": "0.1.0",
+    "description": "foo",
     "main": "app.ts",
     "type": "module",
     "dependencies": {

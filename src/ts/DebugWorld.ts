@@ -38,10 +38,6 @@ export default class DebugWorld implements IWorld {
         this.resTracker.dispose();
     }
 
-    public bindResource(resource:any) {
-
-    }
-
     public windowResizeHook(width: number, height: number) {
         this.camera.aspect = width/height;
         this.camera.updateProjectionMatrix();

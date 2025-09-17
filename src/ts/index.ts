@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import Engine from './engine/Engine';
 
 import "../css/index.css";
+import IntroWorld from './worlds/intro/IntroWorld';
 import DebugWorld from './DebugWorld';
 
 console.log("hello world!");
@@ -15,8 +16,7 @@ const engine = new Engine();
 
 engine.launch();
 
-engine.activeWorld = new DebugWorld();
-engine.activeWorld = new DebugWorld();
+engine.activeWorld = new IntroWorld();
 
 //scene.add(mesh);
 
