@@ -1,5 +1,5 @@
 {
-    "name": "My definition of fun",
+    "name": "fun",
     "version": "0.1.0",
     "description": "foo",
     "main": "app.ts",
