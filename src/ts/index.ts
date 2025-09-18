@@ -14,7 +14,7 @@ const engine = new Engine();
 
 engine.launch();
 
-engine.activeWorld = new IntroWorld(engine);
+engine.activeWorld = new DebugWorld(engine);
 
 //scene.add(mesh);
 

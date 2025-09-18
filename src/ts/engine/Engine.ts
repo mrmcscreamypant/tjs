@@ -1,8 +1,10 @@
 import * as THREE from 'three';
 import IWorld from './IWorld';
+import Post from './Post';
 
 export default class Engine {
-    public renderer: THREE.WebGLRenderer;
+    public readonly renderer: THREE.WebGLRenderer;
+    public post: Post | undefined;
     private _activeWorld: IWorld | undefined;
 
     public constructor() {
@@ -34,6 +36,7 @@ export default class Engine {
         if (this._activeWorld) {
             this._activeWorld.dispose();
         }
+        this.post = new Post(this.renderer, world.scene, world.camera);
         this._activeWorld = world;
         this.doResize();
     }
@@ -49,7 +52,7 @@ export default class Engine {
     private mainloop() {
         if (this.activeWorld) {
             this.activeWorld.mainloop();
-            this.renderer.render(this.activeWorld.scene, this.activeWorld.camera);
+            this.post.render();
         }
     }
 }
