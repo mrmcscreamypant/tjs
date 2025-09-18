@@ -12,17 +12,19 @@ export default class Engine {
         this.setupResizeWatcher();
     }
 
-    public setupRenderer() {
-        return new THREE.WebGLRenderer({
+    public setupRenderer(): THREE.WebGLRenderer {
+        const renderer = new THREE.WebGLRenderer({
             powerPreference: "high-performance",
             antialias: true,
             stencil: false,
             depth: true
         });
+        return renderer;
     }
 
     private doResize() {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.post.composer.setSize(window.innerWidth, window.innerHeight);
         if (this.activeWorld) {
             this.activeWorld.windowResizeHook(window.innerWidth, window.innerHeight);
         }
