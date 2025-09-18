@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
+        "lib": ["ES2024"],
         "typeRoots": [
-            "./index.d.ts"
+            "libindex.d.ts"
         ]
     },
     "include": [
