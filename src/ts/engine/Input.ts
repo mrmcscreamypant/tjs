@@ -2,6 +2,9 @@ import Engine from "./Engine";
 
 export enum Keys {
     LEFT_ARROW = "ArrowLeft",
+    RIGHT_ARROW = "ArrowRight",
+    W = "w",
+    S = "s",
 }
 
 export default class Input {
@@ -12,8 +15,12 @@ export default class Input {
     constructor(engine: Engine) {
         this.engine = engine;
 
-        this.engine.ctx.addEventListener("keydown", (e)=>{
+        this.engine.ctx.addEventListener("keydown", (e: KeyboardEvent)=>{
             this.pressedKeys.push(e.key);
+        })
+
+        this.engine.ctx.addEventListener("keyup", (e: KeyboardEvent)=>{
+            this.pressedKeys = this.pressedKeys.filter((k)=>(k!==e.key));
         })
     }
 
