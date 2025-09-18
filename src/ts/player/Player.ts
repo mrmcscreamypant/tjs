@@ -1,14 +1,16 @@
 import * as THREE from 'three';
-import IObject from "../engine/IObject";
+import Object from "../engine/Object";
 import ITickedObject from '../engine/ITickedObject';
 import { TeapotGeometry } from 'three/addons/geometries/TeapotGeometry.js';
 import IWorld from '../engine/IWorld';
+import PhysicsObject from '../engine/NewtonObject';
 
-export default class Player implements IObject, ITickedObject {
+export default class Player extends PhysicsObject implements ITickedObject {
     public readonly world: IWorld;
     private readonly mesh: THREE.Mesh;
 
     constructor(world: IWorld) {
+        super();
         this.world = world;
 
         const geom = new TeapotGeometry(0.2, 10);
@@ -16,13 +18,15 @@ export default class Player implements IObject, ITickedObject {
         this.mesh = new THREE.Mesh(geom, material);
     }
 
-    public obj(): THREE.Object3D {
+    public obj(): THREE.Mesh {
         return this.mesh;
     }
 
     public tick() {
-        this.mesh.rotation.y += 0.1;
-        this.mesh.rotation.z += 0.01;
-        this.mesh.rotation.x += 0.005;
+        super.tick()
+
+        const direction = this.mesh.getWorldDirection(new THREE.Vector3()).applyAxisAngle(new THREE.Vector3(1,0,0), -Math.PI/2);
+
+        this.applyImpulse(direction.divideScalar(100));
     }
 }

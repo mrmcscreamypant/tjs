@@ -5,6 +5,7 @@
     "main": "app.ts",
     "type": "module",
     "dependencies": {
+        "ammojs3": "^0.0.11",
         "colyseus.js": "^0.16.19",
         "jolt-physics": "^0.37.0",
         "postprocessing": "^6.37.8",

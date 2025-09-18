@@ -1,19 +1,24 @@
 import * as THREE from 'three';
 import IWorld from './IWorld';
 import Post from './Post';
+import Input from './Input';
 
 export default class Engine {
     public readonly renderer: THREE.WebGLRenderer;
     public post: Post | undefined;
+    public readonly input: Input;
     private _activeWorld: IWorld | undefined;
+    public readonly ctx: HTMLElement = document.getElementById("display")
 
     public constructor() {
         this.renderer = this.setupRenderer();
+        this.input = new Input(this);
         this.setupResizeWatcher();
     }
 
     public setupRenderer(): THREE.WebGLRenderer {
         const renderer = new THREE.WebGLRenderer({
+            canvas: this.ctx,
             powerPreference: "high-performance",
             antialias: false,
             stencil: false,

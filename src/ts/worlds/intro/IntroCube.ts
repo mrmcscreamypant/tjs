@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import IObject from '../../engine/IObject';
+import Object from '../../engine/Object';
 import IWorld from '../../engine/IWorld';
 import ITickedObject from '../../engine/ITickedObject';
 import { loadColorTexture } from '../../engine/AssetLoader';
@@ -8,7 +8,7 @@ import sideTexture from './side.jpg';
 
 import DebugWorld from '../../DebugWorld';
 
-export default class IntroCube implements IObject, ITickedObject {
+export default class IntroCube extends Object implements ITickedObject {
     public world: IWorld;
     public readonly geometry: THREE.BoxGeometry;
     public readonly materials: THREE.MeshBasicMaterial[] = [];

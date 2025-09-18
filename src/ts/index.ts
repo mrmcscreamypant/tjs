@@ -29,4 +29,3 @@ engine.activeWorld = new DebugWorld(engine);
     //requestAnimationFrame(animate);
 
 //});
-document.body.appendChild(engine.renderer.domElement);
