@@ -3,8 +3,12 @@ import Engine from "./Engine";
 export enum Keys {
     LEFT_ARROW = "ArrowLeft",
     RIGHT_ARROW = "ArrowRight",
+    UP_ARROW = "ArrowUp",
+    DOWN_ARROW = "ArrowDown",
     W = "w",
+    A = "a",
     S = "s",
+    D = "d",
 }
 
 export default class Input {

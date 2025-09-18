@@ -4,12 +4,13 @@ import IWorld from "./engine/IWorld";
 import ResourceTracker from './engine/ResourceTracker';
 import Engine from './engine/Engine';
 import Player from './player/Player';
+import TrackingCamera from './player/TrackingCamera';
 
 export default class DebugWorld implements IWorld {
     public readonly engine: Engine;
 
     public readonly scene: THREE.Scene;
-    public readonly camera: THREE.PerspectiveCamera;
+    public readonly camera: TrackingCamera;
     public readonly resTracker: ResourceTracker;
 
     public readonly player: Player;
@@ -19,8 +20,7 @@ export default class DebugWorld implements IWorld {
 
         this.resTracker = new ResourceTracker();
         this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(70);
-        this.camera.position.z = 1;
+        this.camera = new TrackingCamera();
 
         this.player = new Player(this);
         this.scene.add(this.player.obj());
@@ -31,6 +31,7 @@ export default class DebugWorld implements IWorld {
 
     public mainloop() {
         this.player.tick();
+        this.camera.tick();
     }
 
     public dispose() {
@@ -38,7 +39,7 @@ export default class DebugWorld implements IWorld {
     }
 
     public windowResizeHook(width: number, height: number) {
-        this.camera.aspect = width / height;
-        this.camera.updateProjectionMatrix();
+        this.camera.raw.aspect = width / height;
+        this.camera.raw.updateProjectionMatrix();
     }
 }
