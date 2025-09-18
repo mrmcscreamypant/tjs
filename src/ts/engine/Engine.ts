@@ -15,9 +15,9 @@ export default class Engine {
     public setupRenderer(): THREE.WebGLRenderer {
         const renderer = new THREE.WebGLRenderer({
             powerPreference: "high-performance",
-            antialias: true,
+            antialias: false,
             stencil: false,
-            depth: true
+            depth: false
         });
         return renderer;
     }
@@ -38,7 +38,7 @@ export default class Engine {
         if (this._activeWorld) {
             this._activeWorld.dispose();
         }
-        this.post = new Post(this.renderer, world.scene, world.camera);
+        this.post = new Post(this, world.scene, world.camera);
         this._activeWorld = world;
         this.doResize();
     }

@@ -1,24 +1,20 @@
 import * as THREE from 'three';
 
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { GlitchPass } from 'three/addons/postprocessing/GlitchPass.js';
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { BloomEffect, EffectComposer, EffectPass, RenderPass } from 'postprocessing';
+import Engine from './Engine';
 
 export default class Post {
+    private readonly engine: Engine;
     public readonly composer: EffectComposer;
 
-    constructor(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera) {
-        this.composer = new EffectComposer(renderer);
+    constructor(engine: Engine, scene: THREE.Scene, camera: THREE.Camera) {
+        this.engine = engine;
+        this.composer = new EffectComposer(this.engine.renderer);
 
         const renderPass = new RenderPass(scene, camera);
         this.composer.addPass(renderPass);
 
-        const glitchPass = new GlitchPass();
-        this.composer.addPass(glitchPass);
-
-        const outputPass = new OutputPass();
-        this.composer.addPass( outputPass );
+        this.composer.addPass(new EffectPass(camera, new BloomEffect()));
     }
 
     public render() {
