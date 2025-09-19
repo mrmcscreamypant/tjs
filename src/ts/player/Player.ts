@@ -69,9 +69,9 @@ export default class Player extends PhysicsObject implements ITickedObject {
 
         this.thrust += (1 - this.thrust) / 4;
 
-        this.rotVel.x *= 0.9;
+        this.rotVel.x *= 0.8;
         this.rotVel.y *= 0.9;
-        this.rotVel.z *= 0.9;
+        this.rotVel.z *= 0.8;
 
         this.mesh.rotation.x *= 0.9;
         this.mesh.rotation.z *= 0.9;
