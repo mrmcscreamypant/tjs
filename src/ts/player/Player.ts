@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { Keys } from '../engine/Input';
 import ITickedObject from '../engine/ITickedObject';
 import { TeapotGeometry } from 'three/addons/geometries/TeapotGeometry.js';
-import IWorld from '../engine/IWorld';
+import steamParticle from '../particles/steam';
 import PhysicsObject from '../engine/NewtonObject';
 import DebugWorld from '../DebugWorld';
 
@@ -19,7 +19,7 @@ export default class Player extends PhysicsObject implements ITickedObject {
         this.world = world;
 
         const geom = new TeapotGeometry(0.2, 10);
-        const material = new THREE.MeshPhongMaterial();
+        const material = new THREE.MeshPhysicalMaterial();
         this.mesh = new THREE.Mesh(geom, material);
         this.mesh.rotation.order = "YXZ";
 
@@ -32,6 +32,7 @@ export default class Player extends PhysicsObject implements ITickedObject {
         this.propRotor = new THREE.Mesh(propGeom, material);
         this.propRotor.position.set(0.4, 0.1, -0.025);
         this.mesh.add(this.propRotor);
+
     }
 
     public obj(): THREE.Mesh {

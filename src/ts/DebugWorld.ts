@@ -28,10 +28,29 @@ export default class DebugWorld implements IWorld {
         const light = new THREE.DirectionalLight(0xFFFFFF, 1);
         this.scene.add(light);
 
-        const terrainGeo = new THREE.PlaneGeometry(20, 20);
-        const terrainPlane = new THREE.Mesh(terrainGeo, new THREE.MeshPhongMaterial());
+        const terrainGeo = new THREE.PlaneGeometry(2000, 2000, 20, 20);
+        const terrainPlane = new THREE.Mesh(terrainGeo, new THREE.MeshPhysicalMaterial());
         terrainPlane.rotation.x = -Math.PI / 2;
         terrainPlane.position.y = 0;
+
+        /*const planeGeometry = terrainPlane.geometry.getAttribute("position");
+
+
+        for (let i = 0, l = planeGeometry.count; i < l; i++) {
+            const y = Math.floor(i / 10);
+            const x = i - y * 10;
+
+            if (x === 4 || x === 5) {
+                planeGeometry.setZ(i, 0);
+            } else {
+                planeGeometry.setZ(i, Math.random() * 48 - 24);
+            }
+
+            if (y === 0 || y === 24) {
+                planeGeometry.setZ(i, -6);
+            }
+        }
+        terrainGeo.computeVertexNormals();*/
 
         this.scene.add(terrainPlane);
     }

@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 
-import Object from "./Object";
+import GameObject from "./GameObject";
 import { ThreeMFLoader } from 'three/examples/jsm/Addons.js';
 
-export default abstract class NewtonObject extends Object {
+export default abstract class NewtonObject extends GameObject {
     public vel: THREE.Vector3 = new THREE.Vector3(0, 0, 0);
     public rotVel: THREE.Vector3 = new THREE.Vector3(0, 0, 0);
 
@@ -15,8 +15,8 @@ export default abstract class NewtonObject extends Object {
         this.obj().position.add(this.vel);
         this.obj().rotation.setFromVector3(
             new THREE.Vector3()
-            .setFromEuler(this.obj().rotation)
-            .add(this.rotVel)
+                .setFromEuler(this.obj().rotation)
+                .add(this.rotVel)
         );
 
         if (this.hasGravity) {

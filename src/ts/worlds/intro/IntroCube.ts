@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import Object from '../../engine/Object';
+import Object from '../../engine/GameObject';
 import IWorld from '../../engine/IWorld';
 import ITickedObject from '../../engine/ITickedObject';
 import { loadColorTexture } from '../../engine/AssetLoader';
@@ -15,7 +15,7 @@ export default class IntroCube extends Object implements ITickedObject {
     public readonly mesh: THREE.Mesh;
 
     private glide: THREE.Vector3 = new THREE.Vector3(2 * Math.PI, 1.5 * Math.PI, 0);
-    private glideTarget: THREE.Vector3 = new THREE.Vector3(Math.PI+0.3, 0.1, Math.PI);
+    private glideTarget: THREE.Vector3 = new THREE.Vector3(Math.PI + 0.3, 0.1, Math.PI);
 
     constructor(world: IWorld) {
         this.world = world;
