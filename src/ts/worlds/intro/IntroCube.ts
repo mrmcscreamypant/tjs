@@ -18,6 +18,7 @@ export default class IntroCube extends Object implements ITickedObject {
     private glideTarget: THREE.Vector3 = new THREE.Vector3(Math.PI + 0.3, 0.1, Math.PI);
 
     constructor(world: IWorld) {
+        super();
         this.world = world;
 
         const track = (o: any): any => (this.world.resTracker.track(o));

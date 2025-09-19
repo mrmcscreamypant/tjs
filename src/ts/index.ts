@@ -10,22 +10,7 @@ console.log("%c hello world!", "font-family:'Comic Sans MS';font-size: 50px;colo
 
 const engine = new Engine();
 
-//engine.scene.add(mesh);
 
 engine.launch();
 
-engine.activeWorld = new DebugWorld(engine);
-
-//scene.add(mesh);
-
-//renderer.setSize(width, height);
-//renderer.setAnimationLoop(animate);
-
-//requestAnimationFrame(function render() {
-
-    //renderer.render(scene, camera)
-	//composer.render();
-	//requestAnimationFrame(render);
-    //requestAnimationFrame(animate);
-
-//});
+engine.activeWorld = new IntroWorld(engine);
