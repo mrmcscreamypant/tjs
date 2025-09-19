@@ -19,8 +19,9 @@ export default class Player extends PhysicsObject implements ITickedObject {
         this.world = world;
 
         const geom = new TeapotGeometry(0.2, 10);
-        const material = new THREE.MeshNormalMaterial();
+        const material = new THREE.MeshPhongMaterial();
         this.mesh = new THREE.Mesh(geom, material);
+        this.mesh.rotation.order = "YXZ";
 
         const rotorGeom = new THREE.BoxGeometry(1, 0.01, 0.025);
         this.rotor = new THREE.Mesh(rotorGeom, material);

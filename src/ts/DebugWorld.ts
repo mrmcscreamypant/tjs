@@ -25,8 +25,15 @@ export default class DebugWorld implements IWorld {
         this.player = new Player(this);
         this.scene.add(this.player.obj());
 
-        const light = new THREE.AmbientLight(0xFFFFFF, 1);
+        const light = new THREE.DirectionalLight(0xFFFFFF, 1);
         this.scene.add(light);
+
+        const terrainGeo = new THREE.PlaneGeometry(20, 20);
+        const terrainPlane = new THREE.Mesh(terrainGeo, new THREE.MeshPhongMaterial());
+        terrainPlane.rotation.x = -Math.PI / 2;
+        terrainPlane.position.y = 0;
+
+        this.scene.add(terrainPlane);
     }
 
     public mainloop() {
