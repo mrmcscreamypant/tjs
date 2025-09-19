@@ -33,7 +33,7 @@ export default class DebugWorld implements IWorld {
         const light = new THREE.DirectionalLight(0xFFFFFF, 1);
         this.scene.add(light);
 
-        const terrainGeo = new THREE.PlaneGeometry(2000, 2000, 20, 20);
+        const terrainGeo = new THREE.PlaneGeometry(20, 20, 20, 20);
         const terrainPlane = new THREE.Mesh(terrainGeo, new THREE.MeshPhysicalMaterial());
         terrainPlane.rotation.x = -Math.PI / 2;
         terrainPlane.position.y = 0;

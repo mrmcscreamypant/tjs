@@ -6,7 +6,7 @@ import "../css/index.css";
 import IntroWorld from './worlds/intro/IntroWorld';
 import DebugWorld from './DebugWorld';
 
-console.log("hello world!");
+console.log("%c hello world!", "font-family:'Comic Sans MS';font-size: 50px;color: green;");
 
 const engine = new Engine();
 
