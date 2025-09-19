@@ -18,7 +18,8 @@
         "app": "electron .",
         "dev": "vite .",
         "network-dev": "vite . --host",
-        "build": "vite build ."
+        "build": "vite build .",
+        "gh-pages": "vite build . --base /tjs/"
     },
     "devDependencies": {
         "@types/three": "^0.180.0",
