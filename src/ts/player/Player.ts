@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import * as QUARKS from 'three.quarks';
 import { Keys } from '../engine/Input';
 import ITickedObject from '../engine/ITickedObject';
 import { TeapotGeometry } from 'three/addons/geometries/TeapotGeometry.js';
@@ -33,6 +34,9 @@ export default class Player extends PhysicsObject implements ITickedObject {
         this.propRotor.position.set(0.4, 0.1, -0.025);
         this.mesh.add(this.propRotor);
 
+        this.mesh.add(steamParticle.emitter);
+        steamParticle.emitter.position.set(0.4,0.15,0);
+        this.world.particleRenderer.addSystem(steamParticle);
     }
 
     public obj(): THREE.Mesh {
@@ -91,7 +95,7 @@ export default class Player extends PhysicsObject implements ITickedObject {
 
         this.vel.multiplyScalar(0.95);
 
-        this.world.camera.target = new THREE.Vector3().copy(this.mesh.position).add(
+        this.world.camera.target = this.mesh.position.clone().add(
             new THREE.Vector3(
                 2 * Math.cos(this.mesh.rotation.y),
                 0.5,

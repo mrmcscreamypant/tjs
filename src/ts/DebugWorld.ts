@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import * as QUARKS from 'three.quarks';
 
 import IWorld from "./engine/IWorld";
 import ResourceTracker from './engine/ResourceTracker';
@@ -12,6 +13,7 @@ export default class DebugWorld implements IWorld {
     public readonly scene: THREE.Scene;
     public readonly camera: TrackingCamera;
     public readonly resTracker: ResourceTracker;
+    public readonly particleRenderer: QUARKS.BatchedRenderer;
 
     public readonly player: Player;
 
@@ -21,6 +23,9 @@ export default class DebugWorld implements IWorld {
         this.resTracker = new ResourceTracker();
         this.scene = new THREE.Scene();
         this.camera = new TrackingCamera();
+
+        this.particleRenderer = new QUARKS.BatchedRenderer();
+        this.scene.add(this.particleRenderer);
 
         this.player = new Player(this);
         this.scene.add(this.player.obj());
@@ -55,8 +60,9 @@ export default class DebugWorld implements IWorld {
         this.scene.add(terrainPlane);
     }
 
-    public mainloop() {
+    public mainloop(delta: number) {
         this.player.tick();
+        this.particleRenderer.update(delta);
         this.camera.tick();
     }
 

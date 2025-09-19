@@ -9,6 +9,6 @@ export default interface IWorld {
     readonly camera: ICamera;
     readonly resTracker: ResourceTracker;
     dispose(): any;
-    mainloop(): any;
+    mainloop(delta: number): any;
     windowResizeHook(width:number, height:number): any;
 }

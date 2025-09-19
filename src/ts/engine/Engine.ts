@@ -10,13 +10,16 @@ export default class Engine {
     private _activeWorld: IWorld | undefined;
     public readonly ctx: HTMLElement = document.getElementById("display")
 
+    public readonly clock: THREE.Clock;
+
     public constructor() {
         this.renderer = this.setupRenderer();
         this.input = new Input(this);
+        this.clock = new THREE.Clock();
         this.setupResizeWatcher();
     }
 
-    public setupRenderer(): THREE.WebGLRenderer {
+    private setupRenderer(): THREE.WebGLRenderer {
         const renderer = new THREE.WebGLRenderer({
             canvas: this.ctx,
             powerPreference: "high-performance",
@@ -57,8 +60,9 @@ export default class Engine {
     }
 
     private mainloop() {
+        const delta = this.clock.getDelta();
         if (this.activeWorld) {
-            this.activeWorld.mainloop();
+            this.activeWorld.mainloop(delta);
             this.post.render();
         }
     }

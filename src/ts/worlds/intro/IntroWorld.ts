@@ -39,7 +39,7 @@ export default class IntroWorld implements IWorld {
         this.scene.add(this.cube.obj());
     }
 
-    public mainloop() {
+    public mainloop(delta: number) {
         this.cube.tick()
     }
 
