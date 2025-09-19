@@ -13,7 +13,6 @@ export default abstract class NewtonObject extends Object {
 
     public tick() {
         this.obj().position.add(this.vel);
-        this.obj().rotation.order = "YZX";
         this.obj().rotation.setFromVector3(
             new THREE.Vector3()
             .setFromEuler(this.obj().rotation)
