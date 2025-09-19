@@ -43,7 +43,7 @@ export default class Engine {
         if (this._activeWorld) {
             this._activeWorld.dispose();
         }
-        this.post = new Post(this, world.scene, world.camera);
+        this.post = new Post(this, world.scene, world.camera.raw);
         this._activeWorld = world;
         this.doResize();
     }
