@@ -29,8 +29,8 @@ export default new QUARKS.ParticleSystem({
         ),
         new QUARKS.SizeOverLife(
             new QUARKS.Vector3Function(
-                new QUARKS.PiecewiseBezier([[new QUARKS.Bezier(1, 1.5, 2, 3), 0]]), // X axis
-                new QUARKS.PiecewiseBezier([[new QUARKS.Bezier(1, 1.5, 2, 3), 0]]), // Y axis
+                new QUARKS.PiecewiseBezier([[new QUARKS.Bezier(1, 1.5, 2, 3), 0]]),
+                new QUARKS.PiecewiseBezier([[new QUARKS.Bezier(1, 1.5, 2, 3), 0]]),
                 new QUARKS.ConstantValue(1), // Z axis
             ),
         ),

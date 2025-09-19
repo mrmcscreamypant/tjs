@@ -1,11 +1,13 @@
 {
     "compilerOptions": {
-        "lib": ["ES2024", "dom"],
-        "typeRoots": [
-            "libindex.d.ts"
-        ]
+        "lib": [
+            "ES2024",
+            "dom"
+        ],
     },
     "include": [
-        "src"
-    ]
+        "src",
+        "lib",
+    ],
+    "moduleResolution": "node16",
 }

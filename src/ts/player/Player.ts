@@ -35,7 +35,7 @@ export default class Player extends PhysicsObject implements ITickedObject {
         this.mesh.add(this.propRotor);
 
         this.mesh.add(steamParticle.emitter);
-        steamParticle.emitter.position.set(0.4,0.15,0);
+        steamParticle.emitter.position.set(0.4, 0.15, 0);
         this.world.particleRenderer.addSystem(steamParticle);
     }
 
