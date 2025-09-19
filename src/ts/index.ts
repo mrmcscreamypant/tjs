@@ -14,7 +14,7 @@ const engine = new Engine();
 
 engine.launch();
 
-engine.activeWorld = new IntroWorld(engine);
+engine.activeWorld = new DebugWorld(engine);
 
 //scene.add(mesh);
 
@@ -29,4 +29,3 @@ engine.activeWorld = new IntroWorld(engine);
     //requestAnimationFrame(animate);
 
 //});
-document.body.appendChild(engine.renderer.domElement);

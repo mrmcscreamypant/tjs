@@ -5,9 +5,12 @@
     "main": "app.ts",
     "type": "module",
     "dependencies": {
+        "ammojs3": "^0.0.11",
+        "colyseus.js": "^0.16.19",
         "jolt-physics": "^0.37.0",
         "postprocessing": "^6.37.8",
         "three": "^0.180.0",
+        "three.terrain.js": "^2.0.0",
         "troika-three-text": "^0.52.4",
         "vite": "^7.1.5"
     },
