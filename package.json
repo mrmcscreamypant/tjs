@@ -22,7 +22,8 @@
         "dev": "vite .",
         "network-dev": "vite . --host",
         "build": "vite build .",
-        "gh-pages": "vite build . --base /tjs/"
+        "gh-pages": "vite build . --base /tjs/",
+        "preview": "vite preview"
     },
     "devDependencies": {
         "@types/three": "^0.180.0",

@@ -7,6 +7,8 @@ import Engine from './engine/Engine';
 import Player from './player/Player';
 import TrackingCamera from './player/TrackingCamera';
 
+import connect from './engine/multiplayer/Connection';
+
 export default class DebugWorld implements IWorld {
     public readonly engine: Engine;
 
@@ -58,6 +60,8 @@ export default class DebugWorld implements IWorld {
         terrainGeo.computeVertexNormals();*/
 
         this.scene.add(terrainPlane);
+
+        console.log(connect().then((e) => { console.log(e); }));
     }
 
     public mainloop(delta: number) {

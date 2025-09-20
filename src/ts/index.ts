@@ -10,7 +10,6 @@ console.log("%c hello world!", "font-family:'Comic Sans MS';font-size: 50px;colo
 
 const engine = new Engine();
 
-
 engine.launch();
 
-engine.activeWorld = new IntroWorld(engine);
+engine.activeWorld = new DebugWorld(engine);
