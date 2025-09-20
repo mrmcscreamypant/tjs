@@ -12,9 +12,14 @@ export default class NetworkPlayer extends Player {
 
     handleInputs() {
         this.obj().position.set(
-            this.state.x,
-            this.state.y,
-            this.state.z
-        )
+            this.state.position.x,
+            this.state.position.y,
+            this.state.position.z
+        );
+        this.obj().rotation.set(
+            this.state.rotation.x,
+            this.state.rotation.y,
+            this.state.rotation.z
+        );
     }
 }

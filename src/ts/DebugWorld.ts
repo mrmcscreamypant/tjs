@@ -79,8 +79,21 @@ export default class DebugWorld implements IWorld {
 
     public setPackets() {
         if (this.connection) {
-            const position = this.player.obj().position.toArray().map((n) => (Math.floor(n * 10) / 10));
-            this.connection.send("update_position", position);
+            const position: number[] = [
+                this.player.obj().position.x,
+                this.player.obj().position.y,
+                this.player.obj().position.z
+            ]
+            const rotation: number[] = [
+                this.player.obj().rotation.x,
+                this.player.obj().rotation.y,
+                this.player.obj().rotation.z
+            ];
+            position.push(...rotation)
+            const data = position.map(
+                (n: number) => (Math.floor(n * 100) / 100)
+            );
+            this.connection.send("update_data", data);
         }
     }
 

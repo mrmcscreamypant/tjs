@@ -6,10 +6,14 @@ export class Battle extends Room<BattleState> {
     public readonly state = new BattleState();
 
     public onCreate(options: any) {
-        this.onMessage("update_position", (client, message: Array<number>) => {
-            this.state.players.get(client.sessionId).x = message[0];
-            this.state.players.get(client.sessionId).y = message[1];
-            this.state.players.get(client.sessionId).z = message[2];
+        this.onMessage("update_data", (client, message: Array<number>) => {
+            this.state.players.get(client.sessionId).position.x = message[0];
+            this.state.players.get(client.sessionId).position.y = message[1];
+            this.state.players.get(client.sessionId).position.z = message[2];
+
+            this.state.players.get(client.sessionId).rotation.x = message[3];
+            this.state.players.get(client.sessionId).rotation.y = message[4];
+            this.state.players.get(client.sessionId).rotation.z = message[5];
         });
     }
 
