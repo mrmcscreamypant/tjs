@@ -1,5 +1,5 @@
 import { Room, Client } from "@colyseus/core";
-import { BattleState } from "./schema/BattleState";
+import { BattleState, Player } from "./schema/BattleState";
 
 export class Battle extends Room<BattleState> {
     public readonly maxClients = 4;
@@ -14,10 +14,12 @@ export class Battle extends Room<BattleState> {
     }
 
     public onJoin(client: Client, options: any) {
+        this.state.players.set(client.sessionId, new Player())
         console.log(client.sessionId, "joined!");
     }
 
     public onLeave(client: Client, consented: boolean) {
+        this.state.players.delete(client.sessionId)
         console.log(client.sessionId, "left!");
     }
 

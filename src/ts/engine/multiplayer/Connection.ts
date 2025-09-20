@@ -10,6 +10,8 @@ export default async function connect() {
     // Listen to 'player' instance additions
     $(room.state).players.onAdd((player, sessionId) => {
         console.log('Player joined:', player);
+        if (sessionId == player)
+            console.log()
     });
 
     // Listen to 'player' instance removals
