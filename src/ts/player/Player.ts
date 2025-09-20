@@ -49,6 +49,10 @@ export default class Player extends PhysicsObject implements ITickedObject {
         this.rotor.rotation.y += 1;
         this.propRotor.rotation.z += 0.5;
 
+        this.handleInputs();
+    }
+
+    public handleInputs() {
         if (this.world.engine.input.getKey(Keys.W)) {
             this.rotVel.z += 0.01;
         } else if (this.world.engine.input.getKey(Keys.S)) {

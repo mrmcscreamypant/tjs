@@ -6,6 +6,7 @@ import IntroCube from './IntroCube';
 import DebugWorld from '../../DebugWorld';
 import Engine from '../../engine/Engine';
 import ICamera from '../../engine/ICamera';
+import { PlayerState } from '../../../server/src/rooms/schema/BattleState';
 
 class IntroCamera implements ICamera {
     public readonly raw: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(70);
@@ -51,4 +52,6 @@ export default class IntroWorld implements IWorld {
         this.camera.raw.aspect = width / height;
         this.camera.raw.updateProjectionMatrix();
     }
+
+    public addPlayer(player: PlayerState, sessionId: string): void { }
 }
