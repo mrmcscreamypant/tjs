@@ -3,7 +3,7 @@ import { PlayerState } from '../../../server/src/rooms/schema/BattleState';
 import IWorld from '../IWorld';
 
 export default async function connect(world: IWorld): Promise<Room> {
-    const client = new Client('http://192.168.50.229:2567');
+    const client = new Client('/api/');
     const room: Room = await client.joinOrCreate('battle', {
         /* custom join options */
     });

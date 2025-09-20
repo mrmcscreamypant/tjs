@@ -11,8 +11,9 @@ const basicAuthMiddleware = basicAuth({
     },
     // sends WWW-Authenticate header, which will prompt the user to fill
     // credentials in
-    challenge: true
-});
+    challenge: true,
+
+} satisfies basicAuth.BasicAuthMiddlewareOptions);
 
 /**
  * Import your Room files
@@ -30,7 +31,7 @@ export default config({
     },
 
     initializeExpress: (app) => {
-        app.get("/hello_world", (req, res) => {
+        app.get("hello_world", (req, res) => {
             res.send("It's time to kick ass and chew bubblegum!");
         });
 
