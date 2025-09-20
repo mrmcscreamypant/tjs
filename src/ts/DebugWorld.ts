@@ -73,8 +73,13 @@ export default class DebugWorld implements IWorld {
 
     public addPlayer(player: PlayerState, sessionId: string): void {
         const newPlayer = new NetworkPlayer(this, player);
-        this.players[sessionId] = newPlayer
+        this.players[sessionId] = newPlayer;
         this.scene.add(newPlayer.obj());
+    }
+
+    public removePlayer(sessionID: string): void {
+        this.scene.remove(this.players[sessionID].obj());
+        this.players.delete(sessionID);
     }
 
     public setPackets() {

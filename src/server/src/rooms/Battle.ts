@@ -23,11 +23,11 @@ export class Battle extends Room<BattleState> {
     }
 
     public onLeave(client: Client, consented: boolean) {
-        this.state.players.delete(client.sessionId)
+        this.state.players.delete(client.sessionId);
         console.log(client.sessionId, "left!");
     }
 
-    publiconDispose() {
+    public onDispose() {
         console.log("room", this.roomId, "disposing...");
     }
 }

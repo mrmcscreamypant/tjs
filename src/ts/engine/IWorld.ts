@@ -13,4 +13,5 @@ export default interface IWorld {
     mainloop(delta: number): void;
     windowResizeHook(width:number, height:number): void;
     addPlayer(player: PlayerState, sessionId: string): void;
+    removePlayer(sessionID: string): void;
 }

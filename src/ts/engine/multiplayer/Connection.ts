@@ -11,7 +11,6 @@ export default async function connect(world: IWorld): Promise<Room> {
 
     // Listen to 'player' instance additions
     $(room.state).players.onAdd((player: PlayerState, sessionId) => {
-        console.log('Player joined:', player);
         if (sessionId != room.sessionId) {
             world.addPlayer(player, sessionId);
         }
@@ -19,7 +18,9 @@ export default async function connect(world: IWorld): Promise<Room> {
 
     // Listen to 'player' instance removals
     $(room.state).players.onRemove((player: PlayerState, sessionId) => {
-        console.log('Player left:', player);
+        if (sessionId != room.sessionId) {
+            world.removePlayer(sessionId);
+        }
     });
 
     return room;

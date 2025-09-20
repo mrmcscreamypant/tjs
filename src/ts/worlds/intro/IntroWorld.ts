@@ -54,4 +54,5 @@ export default class IntroWorld implements IWorld {
     }
 
     public addPlayer(player: PlayerState, sessionId: string): void { }
+    public removePlayer(sessionId: string): void { }
 }
