@@ -1,8 +1,9 @@
 import { Client, getStateCallbacks, Room } from 'colyseus.js';
 import { PlayerState } from '../../../server/src/rooms/schema/BattleState';
-import IWorld from '../IWorld';
+import Debug from '../../weapons/Debug';
+import DebugWorld from '../../DebugWorld';
 
-export default async function connect(world: IWorld): Promise<Room> {
+export default async function connect(world: DebugWorld): Promise<Room> {
     let client: Client;
     //@ts-ignore more trouble than it's worth
     if (import.meta.env.PROD) {
@@ -27,6 +28,12 @@ export default async function connect(world: IWorld): Promise<Room> {
         if (sessionId != room.sessionId) {
             world.removePlayer(sessionId);
         }
+    });
+
+    $(room.state).activeWeapons.onAdd((item: any, idx: number) => {
+        const weapon = new Debug(world, item);
+        world.scene.add(weapon.obj());
+        world.entities.push(weapon);
     });
 
     return room;

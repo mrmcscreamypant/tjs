@@ -1,9 +1,10 @@
 import { Room, Client } from "@colyseus/core";
 import { BattleState, PlayerState } from "./schema/BattleState";
+import { DebugWeaponState } from "./schema/WeaponStates";
 
 export class Battle extends Room<BattleState> {
-    public readonly maxClients = 4;
-    public readonly state = new BattleState();
+    public readonly maxClients: number = 4;
+    public readonly state: BattleState = new BattleState();
 
     public onCreate(options: any) {
         this.onMessage("update_data", (client, message: Array<number>) => {
@@ -14,6 +15,17 @@ export class Battle extends Room<BattleState> {
             this.state.players.get(client.sessionId).rotation.x = message[3];
             this.state.players.get(client.sessionId).rotation.y = message[4];
             this.state.players.get(client.sessionId).rotation.z = message[5];
+        });
+
+        this.onMessage("use_weapon", (client, message: { type: string; }) => {
+            const weapon = new DebugWeaponState(this.state.players.get(client.sessionId));
+            this.state.activeWeapons.add(weapon);
+            const handler = this.clock.setInterval(() => {
+                if (!weapon.tick() && this.state.activeWeapons.has(weapon)) {
+                    this.state.activeWeapons.delete(weapon);
+                    handler.clear();
+                }
+            }, 1 / 30);
         });
     }
 

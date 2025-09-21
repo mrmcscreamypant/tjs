@@ -14,6 +14,7 @@ export default class Player extends PhysicsObject implements ITickedObject {
     private readonly propRotor: THREE.Mesh;
 
     public thrust: number = 1;
+    public currentWeapon = "debug"
 
     constructor(world: DebugWorld) {
         super();
@@ -53,7 +54,7 @@ export default class Player extends PhysicsObject implements ITickedObject {
 
     public handleInputs() {
         super.tick();
-        
+
         if (this.world.engine.input.getKey(Keys.W)) {
             this.rotVel.z += 0.01;
         } else if (this.world.engine.input.getKey(Keys.S)) {
@@ -76,6 +77,12 @@ export default class Player extends PhysicsObject implements ITickedObject {
             this.thrust += 0.1;
         } else if (this.world.engine.input.getKey(Keys.DOWN_ARROW)) {
             this.thrust -= 0.1;
+        }
+
+        if (this.world.engine.input.getKey(Keys.SPACE)) {
+            this.world.connection.send("use_weapon", {
+                type: this.currentWeapon
+            })
         }
 
         this.thrust += (1 - this.thrust) / 4;
