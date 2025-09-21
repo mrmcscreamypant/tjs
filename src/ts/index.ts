@@ -12,4 +12,9 @@ const engine = new Engine();
 
 engine.launch();
 
-engine.activeWorld = new DebugWorld(engine);
+//@ts-ignore .env exists, no matter what you think
+if (import.meta.env.DEV) {
+    engine.activeWorld = new DebugWorld(engine);
+} else {
+    engine.activeWorld = new IntroWorld(engine);
+}

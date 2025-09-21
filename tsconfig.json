@@ -4,6 +4,8 @@
             "ES2024",
             "dom"
         ],
+        "module": "es2022",
+        "moduleResolution": "bundler"
     },
     "include": [
         "src",

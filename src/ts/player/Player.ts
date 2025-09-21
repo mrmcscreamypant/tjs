@@ -44,8 +44,6 @@ export default class Player extends PhysicsObject implements ITickedObject {
     }
 
     public tick() {
-        super.tick();
-
         this.rotor.rotation.y += 1;
         this.propRotor.rotation.z += 0.5;
 
@@ -53,6 +51,8 @@ export default class Player extends PhysicsObject implements ITickedObject {
     }
 
     public handleInputs() {
+        super.tick();
+        
         if (this.world.engine.input.getKey(Keys.W)) {
             this.rotVel.z += 0.01;
         } else if (this.world.engine.input.getKey(Keys.S)) {

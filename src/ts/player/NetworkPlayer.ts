@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 import Player from "./Player";
 import { PlayerState } from "../../server/src/rooms/schema/BattleState";
 import DebugWorld from "../DebugWorld";
@@ -11,15 +13,19 @@ export default class NetworkPlayer extends Player {
     }
 
     handleInputs() {
-        this.obj().position.set(
+        const pos = new THREE.Vector3(
             this.state.position.x,
             this.state.position.y,
             this.state.position.z
-        );
-        this.obj().rotation.set(
+        )
+
+        const rot = new THREE.Vector3(
             this.state.rotation.x,
             this.state.rotation.y,
             this.state.rotation.z
-        );
+        )
+
+        this.obj().position.add(pos.sub(this.obj().position.clone()).divideScalar(3));
+        this.obj().rotation.setFromVector3(rot, this.obj().rotation.order);
     }
 }
