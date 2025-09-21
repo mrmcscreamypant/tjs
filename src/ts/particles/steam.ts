@@ -4,7 +4,7 @@ import * as QUARKS from 'three.quarks';
 import smoke from './smoke.png';
 import { loadColorTexture } from '../engine/AssetLoader';
 
-export default new QUARKS.ParticleSystem({
+export default {
     duration: 1,
     looping: true,
     shape: new QUARKS.PointEmitter(),
@@ -35,4 +35,4 @@ export default new QUARKS.ParticleSystem({
             ),
         ),
     ]
-});
+} satisfies QUARKS.ParticleSystemParameters;
