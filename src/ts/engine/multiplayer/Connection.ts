@@ -33,7 +33,7 @@ export default async function connect(world: DebugWorld): Promise<Room> {
     $(room.state).activeWeapons.onAdd((item: any, idx: number) => {
         const weapon = new Debug(world, item);
         world.scene.add(weapon.obj());
-        world.entities.push(weapon);
+        world.entities[idx] = weapon;
     });
 
     return room;
