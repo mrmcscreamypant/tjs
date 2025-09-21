@@ -23,7 +23,11 @@ export class Battle extends Room<BattleState> {
             this.state.activeWeapons.push(weapon);
             const handler = this.clock.setInterval(() => {
                 if (!weapon.tick()) {
-                    this.state.activeWeapons = new ArraySchema(...this.state.activeWeapons.filter((a) => (a !== weapon)));
+                    this.state.activeWeapons = new ArraySchema(
+                        ...this.state.activeWeapons.filter(
+                            (a) => (a !== weapon)
+                        )
+                    );
                     handler.clear();
                 }
             }, 1 / 30);
