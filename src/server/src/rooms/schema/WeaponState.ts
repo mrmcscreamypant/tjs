@@ -3,7 +3,7 @@ import PlayerState from "./PlayerState";
 import Vector3State from "./Vector3State";
 import { BattleState } from "./BattleState";
 import { Clock } from "colyseus";
-import { generateUUID } from "three.quarks";
+import uuid4 from 'uuid4';
 import { DebugWeaponState } from "./WeaponStates";
 
 export default abstract class WeaponState extends Schema {
@@ -26,7 +26,7 @@ export default abstract class WeaponState extends Schema {
         if (player.weaponCooldown) return;
 
         const weapon = new weaponClass(player);
-        const uuid = generateUUID()
+        const uuid = uuid4();
         player.weaponCooldown = true;
         clock.setTimeout(() => {
             player.weaponCooldown = false;

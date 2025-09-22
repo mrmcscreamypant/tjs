@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import * as QUARKS from 'three.quarks';
 import { Room } from 'colyseus.js';
 
@@ -14,6 +15,8 @@ import GameObject from './engine/GameObject';
 import ITickedObject from './engine/ITickedObject';
 import Weapon from './weapons/Weapon';
 import PlayerState from '../server/src/rooms/schema/PlayerState';
+
+import debugTerrain from './debug.obj?url';
 
 abstract class Entity extends GameObject implements ITickedObject {
     abstract tick(): void;
@@ -50,10 +53,11 @@ export default class DebugWorld implements IWorld {
         const light = new THREE.DirectionalLight(0xFFFFFF, 1);
         this.scene.add(light);
 
-        const terrainGeo = new THREE.PlaneGeometry(20, 20, 20, 20);
-        const terrainPlane = new THREE.Mesh(terrainGeo, new THREE.MeshPhysicalMaterial());
-        terrainPlane.rotation.x = -Math.PI / 2;
-        terrainPlane.position.y = 0;
+        const terrainGeo = new OBJLoader(new THREE.LoadingManager()).load(debugTerrain, (obj) => {
+            obj.rotation.x = -Math.PI / 2;
+            obj.position.y = 0;
+            this.scene.add(obj);
+        });
 
         /*const planeGeometry = terrainPlane.geometry.getAttribute("position");
 
@@ -73,8 +77,6 @@ export default class DebugWorld implements IWorld {
             }
         }
         terrainGeo.computeVertexNormals();*/
-
-        this.scene.add(terrainPlane);
 
         console.log(connect(this).then((room: Room) => { this.connection = room; }));
     }
