@@ -7,9 +7,9 @@ export default class Debug extends Weapon<DebugWeaponState> {
     private mesh: THREE.Mesh;
 
     public init() {
-        const geo = new THREE.SphereGeometry(0.2);
-        const mat = new THREE.MeshNormalMaterial();
-        this.mesh = new THREE.Mesh(geo, mat);
+        const geo = this.tracker.track(new THREE.SphereGeometry(0.2));
+        const mat = this.tracker.track(new THREE.MeshNormalMaterial());
+        this.mesh = this.tracker.track(new THREE.Mesh(geo, mat));
     }
 
     public tick(): void {
