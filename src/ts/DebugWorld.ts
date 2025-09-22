@@ -9,10 +9,11 @@ import Player from './player/Player';
 import TrackingCamera from './player/TrackingCamera';
 
 import connect from './engine/multiplayer/Connection';
-import { PlayerState } from '../server/src/rooms/schema/BattleState';
+import { PlayerState, WeaponState } from '../server/src/rooms/schema/BattleState';
 import NetworkPlayer from './player/NetworkPlayer';
 import GameObject from './engine/GameObject';
 import ITickedObject from './engine/ITickedObject';
+import Weapon from './weapons/Weapon';
 
 abstract class Entity extends GameObject implements ITickedObject {
     abstract tick(): void;
@@ -29,7 +30,7 @@ export default class DebugWorld implements IWorld {
     public connection: Room;
 
     public players: Map<string, NetworkPlayer> = new Map();
-    public entities: Entity[] = [];
+    public entities: Map<string, Weapon<any>> = new Map();
 
     public readonly player: Player;
 
@@ -120,7 +121,8 @@ export default class DebugWorld implements IWorld {
             networkPlayer.tick();
         }
 
-        for (let entity of this.entities) {
+        for (let uuid in this.entities) {
+            const entity = this.entities[uuid];
             if (entity["tick"]) {
                 //@ts-ignore
                 entity.tick();

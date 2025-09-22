@@ -9,9 +9,9 @@ export class DebugWeaponState extends WeaponState {
     }
 
     public tick(): boolean {
-        this.position.y += 0.1;
+        this.position.z += 0.1;
         this.age += 1;
-        if (this.age > 100) {
+        if (this.age > 10) {
             return false;
         }
         return true;

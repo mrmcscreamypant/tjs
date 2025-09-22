@@ -1,7 +1,7 @@
 import { Room, Client } from "@colyseus/core";
 import { BattleState, PlayerState } from "./schema/BattleState";
 import { DebugWeaponState } from "./schema/WeaponStates";
-import { ArraySchema } from '@colyseus/schema';
+import { generateUUID } from "three.quarks";
 
 export class Battle extends Room<BattleState> {
     public readonly maxClients: number = 4;
@@ -20,15 +20,14 @@ export class Battle extends Room<BattleState> {
 
         this.onMessage("use_weapon", (client, message: { type: string; }) => {
             const weapon = new DebugWeaponState(this.state.players.get(client.sessionId));
-            this.state.activeWeapons.push(weapon);
+            const uuid = generateUUID()
+            this.state.activeWeapons.set(uuid, weapon);
             const handler = this.clock.setInterval(() => {
                 if (!weapon.tick()) {
-                    this.state.activeWeapons = new ArraySchema(
-                        ...this.state.activeWeapons.filter(
-                            (a) => (a !== weapon)
-                        )
-                    );
-                    handler.clear();
+                    if (this.state.activeWeapons.has(uuid)) {
+                        this.state.activeWeapons.delete(uuid);
+                        handler.clear();
+                    }
                 }
             }, 1 / 30);
         });

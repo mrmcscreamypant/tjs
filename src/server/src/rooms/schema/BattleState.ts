@@ -1,4 +1,4 @@
-import { Schema, MapSchema, ArraySchema, type } from "@colyseus/schema";
+import { Schema, MapSchema, type } from "@colyseus/schema";
 
 export class Vector3State extends Schema {
     @type("number") x: number;
@@ -37,5 +37,5 @@ export class BattleState extends Schema {
     @type("string") motd: string = "Hello world";
 
     @type({ map: PlayerState }) players: MapSchema<PlayerState> = new MapSchema();
-    @type({ set: WeaponState }) activeWeapons: ArraySchema<WeaponState> = new ArraySchema();
+    @type({ map: WeaponState }) activeWeapons: MapSchema<WeaponState> = new MapSchema();
 }

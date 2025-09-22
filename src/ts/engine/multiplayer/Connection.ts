@@ -30,18 +30,16 @@ export default async function connect(world: DebugWorld): Promise<Room> {
         }
     });
 
-    $(room.state).activeWeapons.onAdd((item: any, idx: number) => {
+    $(room.state).activeWeapons.onAdd((item: any, uuid: string) => {
         const weapon = new Debug(world, item);
         world.scene.add(weapon.obj());
-        world.entities[idx] = weapon;
+        world.entities[uuid] = weapon;
     });
 
-    $(room.state).activeWeapons.onRemove((item: any, idx: number) => {
-        const weapon = world.entities[idx];
+    $(room.state).activeWeapons.onRemove((item: any, uuid: string) => {
+        const weapon = world.entities[uuid];
         world.scene.remove(weapon.obj());
-        world.entities.filter(
-            (a) => (a !== weapon)
-        );
+        world.entities.delete(uuid);
     });
 
     return room;
