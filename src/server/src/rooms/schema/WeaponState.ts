@@ -4,8 +4,7 @@ import Vector3State from "./Vector3State";
 import { BattleState } from "./BattleState";
 import { Clock } from "colyseus";
 import { generateUUID } from "three.quarks";
-
-type WeaponClass = typeof any;
+import { DebugWeaponState } from "./WeaponStates";
 
 export default abstract class WeaponState extends Schema {
     @type(Vector3State) position: Vector3State = new Vector3State(0, 0, 0);
@@ -20,7 +19,8 @@ export default abstract class WeaponState extends Schema {
 
     public abstract init(): void;
     public abstract tick(): boolean;
-    public static fire(sessionId:string,state: BattleState, weaponClass: WeaponClass, clock: Clock): void {
+
+    public static fire(sessionId: string, state: BattleState, weaponClass: typeof DebugWeaponState, clock: Clock): void {
         const weapon = new weaponClass(state.players.get(sessionId));
         const uuid = generateUUID()
         state.activeWeapons.set(uuid, weapon);
