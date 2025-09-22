@@ -10,7 +10,7 @@ export default async function connect(world: DebugWorld): Promise<Room> {
     if (import.meta.env.PROD) {
         client = new Client('/api/');
     } else {
-        client = new Client("https://vxn3z61w-2567.use.devtunnels.ms");
+        client = new Client("http://192.168.50.229:2567");
     }
     const room: Room = await client.joinOrCreate('battle', {
         /* custom join options */

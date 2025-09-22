@@ -12,5 +12,4 @@ export default class PlayerState extends Schema {
     @type("boolean") weaponCooldown: boolean = false;
 
     public ROUND_SIZE: number = 5;
-    public weaponFrame: number = 0;
 }

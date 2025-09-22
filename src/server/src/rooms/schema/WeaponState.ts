@@ -21,8 +21,17 @@ export default abstract class WeaponState extends Schema {
     public abstract tick(): boolean;
 
     public static fire(sessionId: string, state: BattleState, weaponClass: typeof DebugWeaponState, clock: Clock): void {
-        const weapon = new weaponClass(state.players.get(sessionId));
+        const player = state.players.get(sessionId);
+
+        if (player.weaponCooldown) return;
+
+        const weapon = new weaponClass(player);
         const uuid = generateUUID()
+        player.weaponCooldown = true;
+        clock.setTimeout(() => {
+            player.weaponCooldown = false;
+        }, 250);
+
         state.activeWeapons.set(uuid, weapon);
         const handler = clock.setInterval(() => {
             if (!weapon.tick()) {
@@ -31,6 +40,6 @@ export default abstract class WeaponState extends Schema {
                     handler.clear();
                 }
             }
-        }, 1 / 30);
+        }, 1 / 60 * 1000);
     }
 }
