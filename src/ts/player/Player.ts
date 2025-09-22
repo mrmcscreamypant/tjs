@@ -101,7 +101,7 @@ export default class Player extends PhysicsObject implements ITickedObject {
         this.rotVel.y *= 0.9;
         this.rotVel.z *= 0.8;
 
-        const thrust = (2 - Math.cos(normal)) * this.epow * 0.01;
+        const thrust = (1 / Math.cos(normal)) * this.epow * 0.01;
 
         const yVel = Math.cos(normal) * thrust;
         const xVel = Math.sin(this.mesh.rotation.z) * thrust;
