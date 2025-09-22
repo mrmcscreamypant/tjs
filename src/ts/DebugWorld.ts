@@ -9,11 +9,11 @@ import Player from './player/Player';
 import TrackingCamera from './player/TrackingCamera';
 
 import connect from './engine/multiplayer/Connection';
-import { PlayerState, WeaponState } from '../server/src/rooms/schema/BattleState';
 import NetworkPlayer from './player/NetworkPlayer';
 import GameObject from './engine/GameObject';
 import ITickedObject from './engine/ITickedObject';
 import Weapon from './weapons/Weapon';
+import PlayerState from '../server/src/rooms/schema/PlayerState';
 
 abstract class Entity extends GameObject implements ITickedObject {
     abstract tick(): void;

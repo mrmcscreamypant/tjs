@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 import Player from "./Player";
-import { PlayerState } from "../../server/src/rooms/schema/BattleState";
+import PlayerState from "../../server/src/rooms/schema/PlayerState";
 import DebugWorld from "../DebugWorld";
 
 export default class NetworkPlayer extends Player {

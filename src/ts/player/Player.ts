@@ -13,7 +13,7 @@ export default class Player extends PhysicsObject implements ITickedObject {
     private readonly rotor: THREE.Mesh;
     private readonly propRotor: THREE.Mesh;
 
-    public thrust: number = 1;
+    public epow: number = 1; // engine power
     public currentWeapon = "debug"
 
     constructor(world: DebugWorld) {
@@ -53,7 +53,9 @@ export default class Player extends PhysicsObject implements ITickedObject {
     }
 
     public handleInputs() {
+        this.vel.multiplyScalar(0.99);
         super.tick();
+        this.updateCamera();
 
         if (this.world.engine.input.getKey(Keys.W)) {
             this.rotVel.z += 0.01;
@@ -74,9 +76,9 @@ export default class Player extends PhysicsObject implements ITickedObject {
         }
 
         if (this.world.engine.input.getKey(Keys.UP_ARROW)) {
-            this.thrust += 0.1;
+            this.epow += 0.1;
         } else if (this.world.engine.input.getKey(Keys.DOWN_ARROW)) {
-            this.thrust -= 0.1;
+            this.epow -= 0.1;
         }
 
         if (this.world.engine.input.getKey(Keys.SPACE)) {
@@ -85,28 +87,35 @@ export default class Player extends PhysicsObject implements ITickedObject {
             })
         }
 
-        this.thrust += (1 - this.thrust) / 4;
+        this.epow += (1 - this.epow) / 4;
+
+        const normal = Math.sqrt(
+            this.mesh.rotation.x ** 2 +
+            this.mesh.rotation.z ** 2
+        );
+
+        this.mesh.rotation.x *= 0.9;
+        this.mesh.rotation.z *= 0.9;
 
         this.rotVel.x *= 0.8;
         this.rotVel.y *= 0.9;
         this.rotVel.z *= 0.8;
 
-        this.mesh.rotation.x *= 0.9;
-        this.mesh.rotation.z *= 0.9;
+        const thrust = (2 - Math.cos(normal)) * this.epow * 0.01;
 
-        const vVel = Math.cos(this.mesh.rotation.z + this.mesh.rotation.x) * 0.01 * this.thrust;
-        const hVel = Math.sin(this.mesh.rotation.z) * 0.01 * this.thrust;
-        const dVel = Math.sin(this.mesh.rotation.x) * 0.01 * this.thrust;
+        const yVel = Math.cos(normal) * thrust;
+        const xVel = Math.sin(this.mesh.rotation.z) * thrust;
+        const zVel = Math.sin(this.mesh.rotation.x) * thrust;
 
-        this.vel.x -= Math.cos(this.mesh.rotation.y) * hVel -
-            Math.sin(this.mesh.rotation.y) * dVel;
-        this.vel.z += Math.sin(this.mesh.rotation.y) * hVel +
-            Math.cos(this.mesh.rotation.y) * dVel;
+        this.vel.x -= Math.cos(this.mesh.rotation.y) * xVel -
+            Math.sin(this.mesh.rotation.y) * zVel;
+        this.vel.z += Math.sin(this.mesh.rotation.y) * xVel +
+            Math.cos(this.mesh.rotation.y) * zVel;
 
-        this.vel.y += vVel;
+        this.vel.y += yVel;
+    }
 
-        this.vel.multiplyScalar(0.95);
-
+    public updateCamera() {
         this.world.camera.target = this.mesh.position.clone().add(
             new THREE.Vector3(
                 2 * Math.cos(this.mesh.rotation.y),
