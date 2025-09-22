@@ -9,7 +9,7 @@ import { generateUUID } from 'three.quarks';
 export class DebugWeaponState extends WeaponState {
     @type("number") age: number = 0;
     @type(Vector3State) rotation: Vector3State;
-    @type("number") yVel: number = 0;
+    @type(Vector3State) vel: Vector3State = new Vector3State(0, 0, 0);
 
     init() {
         this.rotation = this.owner.rotation.clone();
@@ -25,11 +25,11 @@ export class DebugWeaponState extends WeaponState {
         const vec = new THREE.Vector3(-1, 0, 0).applyQuaternion(quat);
         vec.multiplyScalar(0.5);
 
-        this.position.x += vec.x;
-        this.position.y += vec.y + this.yVel;
-        this.position.z += vec.z;
+        this.position.x += vec.x + this.vel.x;
+        this.position.y += vec.y + this.vel.y;
+        this.position.z += vec.z + this.vel.z;
 
-        this.yVel -= 0.005;
+        this.vel.y -= 0.005;
 
         this.age += 1;
         if (this.age > 50) {

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import * as QUARKS from 'three.quarks';
 import { Room } from 'colyseus.js';
 
@@ -16,7 +16,9 @@ import ITickedObject from './engine/ITickedObject';
 import Weapon from './weapons/Weapon';
 import PlayerState from '../server/src/rooms/schema/PlayerState';
 
-import debugTerrain from './debug.obj?url';
+import { Sky } from 'three/addons/objects/Sky.js';
+
+import debugTerrain from './debug.glb?url';
 
 abstract class Entity extends GameObject implements ITickedObject {
     abstract tick(): void;
@@ -50,33 +52,26 @@ export default class DebugWorld implements IWorld {
         this.player = new Player(this);
         this.scene.add(this.player.obj());
 
-        const light = new THREE.DirectionalLight(0xFFFFFF, 1);
+        const light = new THREE.DirectionalLight(0xFFFFFF, 1.5);
+        const ambient = new THREE.AmbientLight(0xFFFFFF, 0.025);
         this.scene.add(light);
+        this.scene.add(ambient);
 
-        const terrainGeo = new OBJLoader(new THREE.LoadingManager()).load(debugTerrain, (obj) => {
-            obj.rotation.x = -Math.PI / 2;
-            obj.position.y = 0;
-            this.scene.add(obj);
+        const sky = new Sky();
+        sky.scale.setScalar(450000);
+
+        const phi = THREE.MathUtils.degToRad(90);
+        const theta = THREE.MathUtils.degToRad(180);
+        const sunPosition = new THREE.Vector3().setFromSphericalCoords(1, phi, theta);
+
+        sky.material.uniforms.sunPosition.value = sunPosition;
+
+        this.scene.add(sky);
+
+        new GLTFLoader(new THREE.LoadingManager()).load(debugTerrain, (obj) => {
+            obj.scene.position.y = 0;
+            this.scene.add(obj.scene);
         });
-
-        /*const planeGeometry = terrainPlane.geometry.getAttribute("position");
-
-
-        for (let i = 0, l = planeGeometry.count; i < l; i++) {
-            const y = Math.floor(i / 10);
-            const x = i - y * 10;
-
-            if (x === 4 || x === 5) {
-                planeGeometry.setZ(i, 0);
-            } else {
-                planeGeometry.setZ(i, Math.random() * 48 - 24);
-            }
-
-            if (y === 0 || y === 24) {
-                planeGeometry.setZ(i, -6);
-            }
-        }
-        terrainGeo.computeVertexNormals();*/
 
         console.log(connect(this).then((room: Room) => { this.connection = room; }));
     }
