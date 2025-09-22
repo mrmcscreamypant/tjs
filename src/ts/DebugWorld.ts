@@ -11,7 +11,12 @@ import TrackingCamera from './player/TrackingCamera';
 import connect from './engine/multiplayer/Connection';
 import { PlayerState } from '../server/src/rooms/schema/BattleState';
 import NetworkPlayer from './player/NetworkPlayer';
+import GameObject from './engine/GameObject';
 import ITickedObject from './engine/ITickedObject';
+
+abstract class Entity extends GameObject implements ITickedObject {
+    abstract tick(): void;
+}
 
 export default class DebugWorld implements IWorld {
     public readonly engine: Engine;
@@ -24,7 +29,7 @@ export default class DebugWorld implements IWorld {
     public connection: Room;
 
     public players: Map<string, NetworkPlayer> = new Map();
-    public entities: ITickedObject[] = [];
+    public entities: Entity[] = [];
 
     public readonly player: Player;
 
@@ -116,7 +121,10 @@ export default class DebugWorld implements IWorld {
         }
 
         for (let entity of this.entities) {
-            entity.tick();
+            if (entity["tick"]) {
+                //@ts-ignore
+                entity.tick();
+            }
         }
     }
 

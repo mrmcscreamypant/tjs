@@ -9,7 +9,7 @@ export default async function connect(world: DebugWorld): Promise<Room> {
     if (import.meta.env.PROD) {
         client = new Client('/api/');
     } else {
-        client = new Client("http://192.168.50.229:2567");
+        client = new Client("https://vxn3z61w-2567.use.devtunnels.ms");
     }
     const room: Room = await client.joinOrCreate('battle', {
         /* custom join options */
@@ -34,6 +34,14 @@ export default async function connect(world: DebugWorld): Promise<Room> {
         const weapon = new Debug(world, item);
         world.scene.add(weapon.obj());
         world.entities[idx] = weapon;
+    });
+
+    $(room.state).activeWeapons.onRemove((item: any, idx: number) => {
+        const weapon = world.entities[idx];
+        world.scene.remove(weapon.obj());
+        world.entities.filter(
+            (a) => (a !== weapon)
+        );
     });
 
     return room;
