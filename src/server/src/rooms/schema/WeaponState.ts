@@ -1,0 +1,36 @@
+import { Schema, type } from "@colyseus/schema";
+import PlayerState from "./PlayerState";
+import Vector3State from "./Vector3State";
+import { BattleState } from "./BattleState";
+import { Clock } from "colyseus";
+import { generateUUID } from "three.quarks";
+
+type WeaponClass = typeof any;
+
+export default abstract class WeaponState extends Schema {
+    @type(Vector3State) position: Vector3State = new Vector3State(0, 0, 0);
+    @type(PlayerState) owner: PlayerState; // Han shot first
+
+    constructor(owner: PlayerState) {
+        super();
+        this.owner = owner;
+
+        this.init();
+    }
+
+    public abstract init(): void;
+    public abstract tick(): boolean;
+    public static fire(sessionId:string,state: BattleState, weaponClass: WeaponClass, clock: Clock): void {
+        const weapon = new weaponClass(state.players.get(sessionId));
+        const uuid = generateUUID()
+        state.activeWeapons.set(uuid, weapon);
+        const handler = clock.setInterval(() => {
+            if (!weapon.tick()) {
+                if (state.activeWeapons.has(uuid)) {
+                    state.activeWeapons.delete(uuid);
+                    handler.clear();
+                }
+            }
+        }, 1 / 30);
+    }
+}

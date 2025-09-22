@@ -1,4 +1,4 @@
-import { WeaponState } from "../../server/src/rooms/schema/BattleState";
+import WeaponState from "../../server/src/rooms/schema/WeaponState";
 import DebugWorld from "../DebugWorld";
 import GameObject from "../engine/GameObject";
 import ITickedObject from "../engine/ITickedObject";
@@ -23,4 +23,5 @@ export default abstract class Weapon<State extends WeaponState> extends GameObje
 
     public abstract init(): void;
     public abstract tick(): void;
+    public abstract dispose(): void;
 }

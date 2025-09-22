@@ -1,5 +1,5 @@
 import { Client, getStateCallbacks, Room } from 'colyseus.js';
-import { PlayerState } from '../../../server/src/rooms/schema/BattleState';
+import PlayerState from '../../../server/src/rooms/schema/PlayerState';
 import Debug from '../../weapons/Debug';
 import DebugWorld from '../../DebugWorld';
 import Weapon from '../../weapons/Weapon';
@@ -40,7 +40,7 @@ export default async function connect(world: DebugWorld): Promise<Room> {
     $(room.state).activeWeapons.onRemove((item: any, uuid: string) => {
         const weapon: Weapon<any> = world.entities[uuid];
         world.scene.remove(weapon.obj());
-        weapon.tracker.dispose();
+        weapon.dispose();
         world.entities.delete(uuid);
     });
 
