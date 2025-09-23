@@ -13,7 +13,7 @@ export default class TrackingCamera implements ICamera {
     tick() {
         this.raw.position.add(
             this.target.clone().sub(this.raw.position)
-            .divideScalar(10)
+            .divideScalar(5)
         )
     }
 }
