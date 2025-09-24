@@ -18,7 +18,7 @@ import PlayerState from '../server/src/rooms/schema/PlayerState';
 
 import { Sky } from 'three/addons/objects/Sky.js';
 
-import debugTerrain from './debug.glb?url';
+import debugTerrain from './hs.glb?url';
 
 abstract class Entity extends GameObject implements ITickedObject {
     abstract tick(): void;
@@ -69,7 +69,7 @@ export default class DebugWorld implements IWorld {
         this.scene.add(sky);
 
         new GLTFLoader(new THREE.LoadingManager()).load(debugTerrain, (obj) => {
-            obj.scene.position.y = 0;
+            obj.scene.scale.multiplyScalar(2);
             this.scene.add(obj.scene);
         });
 

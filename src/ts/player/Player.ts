@@ -64,9 +64,9 @@ export default class Player extends PhysicsObject implements ITickedObject {
         }
 
         if (this.world.engine.input.getKey(Keys.LEFT_ARROW)) {
-            this.rotVel.y += 0.01;
+            this.rotVel.y += 0.005;
         } else if (this.world.engine.input.getKey(Keys.RIGHT_ARROW)) {
-            this.rotVel.y -= 0.01;
+            this.rotVel.y -= 0.005;
         }
 
         if (this.world.engine.input.getKey(Keys.A)) {

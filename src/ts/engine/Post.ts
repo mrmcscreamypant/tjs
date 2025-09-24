@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { BloomEffect, EffectComposer, EffectPass, RenderPass } from 'postprocessing';
+import { EffectComposer, EffectPass, RenderPass } from 'postprocessing';
 import Engine from './Engine';
 
 export default class Post {
@@ -14,7 +14,7 @@ export default class Post {
         const renderPass = new RenderPass(scene, camera);
         this.composer.addPass(renderPass);
 
-        this.composer.addPass(new EffectPass(camera, new BloomEffect()));
+        this.composer.addPass(new EffectPass(camera, ));
     }
 
     public render() {
